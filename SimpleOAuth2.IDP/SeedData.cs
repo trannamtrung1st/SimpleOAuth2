@@ -15,7 +15,7 @@ namespace SimpleOAuth2.IDP
             using (var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                var isInit = (await context.Database.GetAppliedMigrationsAsync()).Any();
+                var isInit = !(await context.Database.GetAppliedMigrationsAsync()).Any();
                 await context.Database.MigrateAsync();
 
                 if (isInit)
